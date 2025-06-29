@@ -1,0 +1,29 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "E-commerce project for portflio",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "dev-legacy": "nodemon --legacy-watch ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahmudbekstudio/ecommerce.git"
+  },
+  "keywords": [
+    "E-commerce",
+    "product",
+    "blog"
+  ],
+  "author": "Makhmud Adilov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahmudbekstudio/ecommerce/issues"
+  },
+  "homepage": "https://github.com/mahmudbekstudio/ecommerce#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
