@@ -1,19 +1,28 @@
 import { createServer } from 'http';
 import routes from './modules/routes.js';
-import checkRouteUrl from "./foundation/utils/checkRouteUrl.js";
+import { compose, checkRouteUrl } from './library/helper.js';
 
 const PORT = process.env.PORT;
 
 const server = createServer((req, res) => {
+    let pageExist = false;
+
     for (const route of routes) {
         if (checkRouteUrl(req.url, route.pattern)) {
-            if (route.middleware && route.middleware.length) {
-                for (const middleware of route.middleware) {
-                    middleware(req, res, () => route.controller)
-                }
-            }
+            compose(
+                route.middleware || [],
+                req,
+                res,
+                route
+            ).catch(console.error);
+            pageExist = true;
         }
     }
+
+    if (!pageExist) {
+        console.log('page not found')
+    }
+
     res.end();
 });
 

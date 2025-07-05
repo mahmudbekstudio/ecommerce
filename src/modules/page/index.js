@@ -1,3 +1,3 @@
-export default {
-    render: (req, res) => res.end('Page')
-}
+export default async (req, res) => {
+    console.log('Page Controller Action');
+};

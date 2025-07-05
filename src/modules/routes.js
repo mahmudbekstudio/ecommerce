@@ -1,17 +1,23 @@
-import homePage from './home';
-import pagePage from './page';
+import homePage from './home/index.js';
+import pagePage from './page/index.js';
+import pageItemPage from './page/pageItem.js';
 
 import logMiddleware from '../foundation/middleware/log.js';
 import translationMiddleware from '../foundation/middleware/translation.js';
 
 export default [
     {
-        pattern: '',
+        pattern: /^\/$/,
         controller: homePage,
     },
     {
-        pattern: 'page',
+        pattern: /^\/pages$/,
         controller: pagePage,
+        middleware: [logMiddleware, translationMiddleware],
+    },
+    {
+        pattern: /^\/page\/(\d+)\/test\/(\d+)$/,
+        controller: pageItemPage,
         middleware: [logMiddleware, translationMiddleware],
     },
 ];

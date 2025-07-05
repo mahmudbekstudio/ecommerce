@@ -1,3 +1,3 @@
-export default {
-    render: (req, res) => res.end('Home page')
-}
+export default async (req, res) => {
+    console.log('Home Controller Action');
+};
