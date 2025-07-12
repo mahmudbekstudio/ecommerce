@@ -4,8 +4,10 @@
   "description": "E-commerce project for portflio",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --env-file=.env ./src/index.js",
-    "dev-legacy": "nodemon --legacy-watch --env-file=.env ./src/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "dev-legacy": "nodemon --legacy-watch",
+    "olddev": "nodemon --env-file=.env ./src/index.js",
+    "olddev-legacy": "nodemon --legacy-watch --env-file=.env ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,7 +19,6 @@
     "product",
     "blog"
   ],
-  "type": "module",
   "author": "Makhmud Adilov",
   "license": "MIT",
   "bugs": {
@@ -25,6 +26,18 @@
   },
   "homepage": "https://github.com/mahmudbekstudio/ecommerce#readme",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.13",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
