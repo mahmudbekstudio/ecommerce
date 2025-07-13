@@ -29,7 +29,7 @@ const routes: routeItemType[] = [
                 controller: new CategoryController
             },
             {
-                url: ':post_name',
+                url: 'post/:post_name',
                 method: 'get',
                 name: 'post',
                 controller: new PostController

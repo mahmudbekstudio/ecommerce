@@ -1,8 +1,13 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
-import routes, { routeItemType } from './routes';
+import express, { Application } from 'express';
+import routes from './routes';
 import getApp from "./lib/getApp";
+import connectToDatabase from "./lib/connectToDatabase";
+import generateRoute from "./lib/generateRoute";
 import dotenv from 'dotenv';
 import path from 'path';
+import Setting from './models/Setting';
+import mongoose from "mongoose";
+
 dotenv.config();
 
 const app: Application = getApp();
@@ -10,40 +15,23 @@ const app: Application = getApp();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(async (req, res, next) => {
+    const settings: {key: String; value: mongoose.Schema.Types.Mixed }[] = await Setting.find();
+
+    for (const setting of settings) {
+        res.locals[setting.key] = setting.value;
+    }
+
+    next();
+});
 
 app.use('/public', express.static('./src/public'))
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-function generateRoute(routes: routeItemType[], parentUrl: string = '') {
-    for (const routeItem of routes) {
-        const url = [parentUrl, routeItem.url].join('/');
-        if (routeItem.children) {
-            generateRoute(routeItem.children, url);
-        } else if (routeItem.controller && routeItem.method) {
-            const controller = routeItem.controller;
-            app[routeItem.method](url, (req: Request, res: Response) => {
-                controller.beforeHandle(req, res);
-                controller.handle(req, res);
-                controller.afterHandle(req, res);
-            });
-        }
-    }
-}
-
+connectToDatabase();
 generateRoute(routes);
-
-// 404 handler
-app.use((req: Request, res: Response) => {
-    res.status(404).send('Route not found');
-});
-
-// Global error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error('Error:', err.message);
-    res.status(500).send('Internal Server Error');
-});
 
 // Start server
 const PORT = process.env.PORT;

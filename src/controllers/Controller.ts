@@ -11,7 +11,6 @@ class Controller {
     }
 
     protected init () {
-        this.app.locals.siteName = 'My new website';
         this.setTitle(this.title);
     }
 
