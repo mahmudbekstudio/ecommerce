@@ -4,7 +4,8 @@ import { Request, Response } from "express";
 class PostController extends Controller
 {
     handle(req: Request, res: Response) {
-        res.send('Post' + JSON.stringify(req.params));
+        this.setTitle('My post')
+        res.render('post', {});
     }
 }
 

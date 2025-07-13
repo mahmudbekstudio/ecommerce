@@ -3,6 +3,7 @@ import getApp from "../lib/getApp";
 
 class Controller {
     protected app: Application;
+    protected title: string = '';
 
     constructor() {
         this.app = getApp();
@@ -11,10 +12,23 @@ class Controller {
 
     protected init () {
         this.app.locals.siteName = 'My new website';
+        this.setTitle(this.title);
+    }
+
+    public beforeHandle (req: Request, res: Response) {
+        //
     }
 
     public handle (req: Request, res: Response) {
         throw Error("Not declared");
+    }
+
+    public afterHandle (req: Request, res: Response) {
+        //
+    }
+
+    protected setTitle (title: string) {
+        this.app.locals.siteTitle = title;
     }
 }
 

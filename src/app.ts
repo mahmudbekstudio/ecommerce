@@ -22,7 +22,12 @@ function generateRoute(routes: routeItemType[], parentUrl: string = '') {
         if (routeItem.children) {
             generateRoute(routeItem.children, url);
         } else if (routeItem.controller && routeItem.method) {
-            app[routeItem.method](url, routeItem.controller.handle);
+            const controller = routeItem.controller;
+            app[routeItem.method](url, (req: Request, res: Response) => {
+                controller.beforeHandle(req, res);
+                controller.handle(req, res);
+                controller.afterHandle(req, res);
+            });
         }
     }
 }

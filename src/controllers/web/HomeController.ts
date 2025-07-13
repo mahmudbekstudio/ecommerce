@@ -3,13 +3,9 @@ import { Request, Response } from "express";
 
 class HomeController extends Controller
 {
+    protected title: string = 'Home page';
     handle(req: Request, res: Response) {
-        //res.send('Home');
-        res.render('home', {
-            title: 'Homepage',
-            heading: 'Hello from EJS!',
-            user: 'Mahmudbek'
-        });
+        res.render('home', {});
     }
 }
 
