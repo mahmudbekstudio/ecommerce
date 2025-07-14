@@ -1,0 +1,12 @@
+#loginModal input {
+    width: 100%;
+    font-size: 16px;
+    padding-left: 20px;
+    color: #1c1c1c;
+    height: 46px;
+    border: 1px solid #ededed;
+}
+
+.header__top__right__auth a {
+    display: inline-block;
+}

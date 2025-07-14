@@ -2,6 +2,7 @@ import HomeController from './controllers/web/HomeController';
 import CategoryController from "./controllers/web/CategoryController";
 import PostController from "./controllers/web/PostController";
 import Controller from "./controllers/Controller";
+import LoginController from './controllers/api/LoginController';
 
 export type routeItemType = {
     url: string;
@@ -33,6 +34,18 @@ const routes: routeItemType[] = [
                 method: 'get',
                 name: 'post',
                 controller: new PostController
+            }
+        ],
+    },
+    {
+        url: 'api',
+        name: 'api',
+        children: [
+            {
+                url: 'login',
+                name: 'login',
+                method: 'post',
+                controller: new LoginController
             }
         ],
     }
