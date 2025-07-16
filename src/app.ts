@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Setting from './models/Setting';
 import mongoose from "mongoose";
+import mainSettings from "./config/mainSettings";
 
 dotenv.config();
 
@@ -18,8 +19,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(async (req, res, next) => {
     const settings: {key: String; value: mongoose.Schema.Types.Mixed }[] = await Setting.find();
 
+    const mainSettingKeys: string[] = Object.keys(mainSettings);
+    for (const mainSettingKey in mainSettings) {
+        res.locals[mainSettingKey] = mainSettings[mainSettingKey];
+    }
+
     for (const setting of settings) {
-        res.locals[setting.key] = setting.value;
+        if (mainSettingKeys.indexOf(setting.key) > -1) {
+            res.locals[setting.key] = setting.value;
+        }
     }
 
     next();

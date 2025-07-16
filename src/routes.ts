@@ -44,7 +44,7 @@ const routes: routeItemType[] = [
             {
                 url: 'login',
                 name: 'login',
-                method: 'post',
+                method: 'get',
                 controller: new LoginController
             }
         ],

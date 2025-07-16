@@ -10,11 +10,15 @@ export default function generateRoute(routes: routeItemType[], parentUrl: string
         if (routeItem.children) {
             generateRoute(routeItem.children, url);
         } else if (routeItem.controller && routeItem.method) {
+            console.log('url', url, routeItem.method, routeItem.url);
             const controller = routeItem.controller;
+            //console.log('routeItem', routeItem.method, url);
             app[routeItem.method](url, (req: Request, res: Response) => {
-                controller.beforeHandle(req, res);
-                controller.handle(req, res);
-                controller.afterHandle(req, res);
+                console.log(req.url)
+                res.send(req.url);
+                //controller.beforeHandle(req, res);
+                //controller.handle(req, res);
+                //controller.afterHandle(req, res);
             });
         }
     }

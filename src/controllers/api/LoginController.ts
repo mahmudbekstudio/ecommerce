@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 class LoginController extends Controller
 {
     handle(req: Request, res: Response) {
+        console.log('LoginController');
         res.json({});
     }
 }
