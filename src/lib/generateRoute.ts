@@ -1,6 +1,10 @@
 import { routeItemType } from "../routes";
 import {Application, Request, Response, NextFunction} from "express";
 import getApp from "./getApp";
+import { z } from 'zod';
+import Controller from "../controllers/Controller";
+import ApiController from "../controllers/ApiController";
+import requestError from "./requestError";
 
 export default function generateRoute(routes: routeItemType[]) {
     const app:Application = getApp();
@@ -11,12 +15,31 @@ export default function generateRoute(routes: routeItemType[]) {
             if (routeItem.children) {
                 generateRouteList(routeItem.children, url);
             } else if (routeItem.controller && routeItem.method) {
-                const controller = routeItem.controller;
-                app[routeItem.method](url, (req: Request, res: Response) => {
-                    controller.beforeHandle(req, res);
-                    controller.handle(req, res);
-                    controller.afterHandle(req, res);
-                });
+                const controller: Controller = routeItem.controller;
+                app[routeItem.method](url, async (req: Request, res: Response) => {
+                        try {
+                            if (controller.request) {
+                                await controller.request.parseAsync(req.body)
+                            }
+
+                            controller.beforeHandle(req, res, req.body);
+                            controller.handle(req, res, req.body);
+                            controller.afterHandle(req, res, req.body);
+                        } catch (e) {
+                            if (e instanceof z.ZodError) {
+                                res.statusCode = 400;
+                                res.json({error: 'Error', data: requestError(e)});
+                            } else {
+                                console.error("Unexpected error:", e);
+
+                                if (controller instanceof ApiController) {
+                                    res.json({error: 'Error'});
+                                } else {
+                                    res.send('error');
+                                }
+                            }
+                        }
+                    });
             }
         }
     }

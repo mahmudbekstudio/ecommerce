@@ -3,6 +3,8 @@ import CategoryController from "./controllers/web/CategoryController";
 import PostController from "./controllers/web/PostController";
 import Controller from "./controllers/Controller";
 import LoginController from './controllers/api/LoginController';
+import LogoutController from './controllers/api/LogoutController';
+import SignupController from './controllers/api/SignupController';
 
 export type routeItemType = {
     url: string;
@@ -46,6 +48,18 @@ const routes: routeItemType[] = [
                 name: 'login',
                 method: 'post',
                 controller: new LoginController
+            },
+            {
+                url: 'logout',
+                name: 'logout',
+                method: 'post',
+                controller: new LogoutController
+            },
+            {
+                url: 'signup',
+                name: 'signup',
+                method: 'post',
+                controller: new SignupController
             }
         ],
     }
