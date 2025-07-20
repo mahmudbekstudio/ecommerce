@@ -71,6 +71,12 @@
             data: {email: email.val(), password: password.val(), first_name: firstName.val(), last_name: lastName.val()},
             success: function (response) {
                 console.log('response', response);
+                email.val('');
+                password.val('');
+                firstName.val('');
+                lastName.val('');
+                $('#signUpModal').modal('hide');
+                $('#signupToast').toast('show');
             },
             error: function (xhr) {
                 const errors = JSON.parse(xhr.responseText);
