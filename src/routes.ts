@@ -1,6 +1,7 @@
 import HomeController from './controllers/web/HomeController';
-import CategoryController from "./controllers/web/CategoryController";
-import PostController from "./controllers/web/PostController";
+import BlogController from "./controllers/web/BlogController";
+import BlogPostController from "./controllers/web/BlogPostController";
+import BlogTagController from './controllers/web/BlogTagController';
 import Controller from "./controllers/Controller";
 import LoginController from './controllers/api/LoginController';
 import LogoutController from './controllers/api/LogoutController';
@@ -22,22 +23,22 @@ const routes: routeItemType[] = [
         controller: new HomeController
     },
     {
-        url: 'category/:category_name',
-        name: 'category',
-        children: [
-            {
-                url: '',
-                method: 'get',
-                name: 'category_item',
-                controller: new CategoryController
-            },
-            {
-                url: 'post/:post_name',
-                method: 'get',
-                name: 'post',
-                controller: new PostController
-            }
-        ],
+        url: 'blog{/:blog_name}',
+        name: 'blog',
+        method: 'get',
+        controller: new BlogController
+    },
+    {
+        url: 'blog-tag/:tag_name',
+        name: 'blog_tag',
+        method: 'get',
+        controller: new BlogTagController
+    },
+    {
+        url: 'blog-post/:post_name',
+        method: 'get',
+        name: 'blog_post',
+        controller: new BlogPostController
     },
     {
         url: 'api',

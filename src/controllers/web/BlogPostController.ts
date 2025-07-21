@@ -1,12 +1,12 @@
 import Controller from "../Controller";
 import { Request, Response } from "express";
 
-class PostController extends Controller
+class BlogPostController extends Controller
 {
     async handle(req: Request, res: Response) {
         this.setTitle('My post')
-        res.render('post', {});
+        res.render('blog-post', {});
     }
 }
 
-export default PostController;
+export default BlogPostController;

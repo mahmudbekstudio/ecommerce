@@ -1,11 +1,11 @@
 import Controller from "../Controller";
 import { Request, Response } from "express";
 
-class CategoryController extends Controller
+class BlogTagController extends Controller
 {
     handle(req: Request, res: Response) {
-        res.render('caegory', {});
+        res.render('blog', {});
     }
 }
 
-export default CategoryController;
+export default BlogTagController;
