@@ -4,16 +4,15 @@ import { z } from 'zod';
 
 class Controller {
     protected app: Application;
-    protected title: string = '';
+    public title: string = '';
     public request: z.ZodObject|null = null;
 
 
     constructor() {
         this.app = getApp();
-        this.init();
     }
 
-    protected init () {
+    public init () {
         this.setTitle(this.title);
     }
 

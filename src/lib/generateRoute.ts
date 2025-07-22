@@ -22,6 +22,7 @@ export default function generateRoute(routes: routeItemType[]) {
                                 await controller.request.parseAsync(req.body)
                             }
 
+                            controller.init();
                             controller.beforeHandle(req, res, req.body);
                             controller.handle(req, res, req.body);
                             controller.afterHandle(req, res, req.body);
