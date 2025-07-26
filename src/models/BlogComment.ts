@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const blogSchema = new mongoose.Schema({
+const blogCommentSchema = new mongoose.Schema({
     post_id: {
         type: mongoose.Types.ObjectId,
         required: true
@@ -19,4 +19,4 @@ const blogSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export default mongoose.model('Blog', blogSchema);
+export default mongoose.model('BlogComment', blogCommentSchema);

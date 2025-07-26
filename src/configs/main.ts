@@ -7,5 +7,8 @@ export default {
     token: {
         tokenExpireTime: '1h',
         refreshTokenExpireTime: '30d',
+    },
+    pagination: {
+        count: 10,
     }
 }

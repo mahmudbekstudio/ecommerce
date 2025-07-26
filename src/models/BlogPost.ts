@@ -34,10 +34,6 @@ const blogPostSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    comments: {
-        type: Array,
-        default: []
-    }
 }, { timestamps: true });
 
 export default mongoose.model('BlogPost', blogPostSchema);

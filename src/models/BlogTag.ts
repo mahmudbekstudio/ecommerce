@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const blogSchema = new mongoose.Schema({
+const blogTagSchema = new mongoose.Schema({
     name: {
         type: String,
         unique: true,
@@ -12,4 +12,4 @@ const blogSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-export default mongoose.model('BlogTag', blogSchema);
+export default mongoose.model('BlogTag', blogTagSchema);

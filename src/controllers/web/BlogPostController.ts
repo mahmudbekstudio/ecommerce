@@ -1,11 +1,13 @@
 import Controller from "../Controller";
 import { Request, Response } from "express";
+import BlogTag from "../../models/BlogTag";
 
 class BlogPostController extends Controller
 {
     async handle(req: Request, res: Response) {
-        this.setTitle('My post')
-        res.render('blog-post', {});
+        res.render('blog-post', {
+            blogTags: await BlogTag.find().sort({title: 1}),
+        });
     }
 }
 

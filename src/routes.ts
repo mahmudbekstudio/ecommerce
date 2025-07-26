@@ -1,4 +1,5 @@
 import HomeController from './controllers/web/HomeController';
+import NotFoundController from './controllers/web/NotFoundController';
 import BlogController from "./controllers/web/BlogController";
 import BlogPostController from "./controllers/web/BlogPostController";
 import BlogTagController from './controllers/web/BlogTagController';
@@ -21,6 +22,12 @@ const routes: routeItemType[] = [
         method: 'get',
         name: 'home',
         controller: new HomeController
+    },
+    {
+        url: '404',
+        method: 'get',
+        name: 'not_found',
+        controller: new NotFoundController
     },
     {
         url: 'blog{/:blog_name}',

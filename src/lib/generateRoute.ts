@@ -49,8 +49,9 @@ export default function generateRoute(routes: routeItemType[]) {
 
     // 404 handler
     app.use((req: Request, res: Response) => {
-        console.log('not found url', req.url);
-        res.status(404).send('Route not found');
+        /*console.log('not found url', req.url);
+        res.status(404).send('Route not found');*/
+        res.redirect(404, '/404');
     });
 
     // Global error handler
