@@ -28,6 +28,8 @@ export default function generateRoute(routes: routeItemType[]) {
                             controller.beforeHandle(req, res, req.body);
                             const result = await controller.handle(req, res, req.body);
 
+                            if (result === false) return false;
+
                             if (controller instanceof ApiController) {
                                 res.json(result);
                             } else {
