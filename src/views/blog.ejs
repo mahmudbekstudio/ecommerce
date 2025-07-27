@@ -60,10 +60,15 @@
                <% if (totalPages > 1){ %>
                <div class="col-lg-12">
                   <div class="product__pagination blog__pagination">
+                    <% if (currentPage > 1) { %>
+                    <a href="?page=<%= (currentPage - 1) %>"><i class="fa fa-long-arrow-left"></i></a>
+                    <% } %>
                       <% for(let i = 1; i <= totalPages; i++){ %>
                      <a href="?page=<%= i %>"<% if(currentPage == i){ %> class="active"<% } %>><%= i %></a>
                      <% } %>
-                     <!--a href="#"><i class="fa fa-long-arrow-right"></i></a-->
+                     <% if (currentPage < totalPages) { %>
+                     <a href="?page=<%= (currentPage + 1) %>"><i class="fa fa-long-arrow-right"></i></a>
+                     <% } %>
                   </div>
                </div>
                <% } %>

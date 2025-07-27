@@ -10,7 +10,7 @@ class LoginController extends ApiController
 {
     public request = LoginRequest;
 
-    async handle(req: Request, res: Response, data: LoginType) {
+    async handle(req: Request, res: Response, data: LoginType): Promise<Object> {
         const userItem = await User.findOne({email: data.email});
 
         if (!userItem || !(await bcrypt.compare(data.password, userItem.password))) {
@@ -30,7 +30,8 @@ class LoginController extends ApiController
                 sameSite: 'strict',
                 maxAge: token.tokenExpireTime
             });
-            res.json({result: true, data: token.data});
+
+            return {result: true, data: token.data};
         }
     }
 }

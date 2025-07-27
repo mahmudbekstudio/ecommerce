@@ -9,7 +9,7 @@ class SignupController extends ApiController
 {
     public request = SignupRequest;
 
-    async handle(req: Request, res: Response, data: SignupType) {
+    async handle(req: Request, res: Response, data: SignupType): Promise<Object> {
         const hashedPassword = await bcrypt.hash(data.password, 10);
         const user = new User({
             email: data.email,
@@ -20,9 +20,9 @@ class SignupController extends ApiController
             }
         });
         await user.save();
-        res.json({
+        return {
             result: true
-        });
+        };
     }
 }
 

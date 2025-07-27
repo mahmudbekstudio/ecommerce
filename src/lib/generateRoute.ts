@@ -5,6 +5,8 @@ import { z } from 'zod';
 import Controller from "../controllers/Controller";
 import ApiController from "../controllers/ApiController";
 import requestError from "./requestError";
+import viewParams from '../viewParams';
+import lodash from 'lodash';
 
 export default function generateRoute(routes: routeItemType[]) {
     const app:Application = getApp();
@@ -24,7 +26,31 @@ export default function generateRoute(routes: routeItemType[]) {
 
                             controller.init();
                             controller.beforeHandle(req, res, req.body);
-                            controller.handle(req, res, req.body);
+                            const result = await controller.handle(req, res, req.body);
+
+                            if (controller instanceof ApiController) {
+                                res.json(result);
+                            } else {
+                                if (viewParams.views[controller.view]) {
+                                    const paramKeys = viewParams.views[controller.view]();
+
+                                    if (Array.isArray(paramKeys) && paramKeys.length) {
+                                        for (let i = 0; i < paramKeys.length; i++) {
+                                            const params = lodash.get(viewParams, paramKeys[i]);
+
+                                            for (const paramsKey in params) {
+                                                const resultKey = 'viewParams.' + paramKeys[i] + '.' + paramsKey;
+
+                                                if (!lodash.has(result, resultKey)) {
+                                                    lodash.set(result, resultKey, await params[paramsKey]());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                res.render(controller.view, result);
+                            }
+
                             controller.afterHandle(req, res, req.body);
                         } catch (e) {
                             if (e instanceof z.ZodError) {

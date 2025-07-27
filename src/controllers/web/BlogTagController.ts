@@ -3,8 +3,9 @@ import { Request, Response } from "express";
 
 class BlogTagController extends Controller
 {
-    handle(req: Request, res: Response) {
-        res.render('blog', {});
+    public view = 'blog';
+    handle(req: Request, res: Response): Object {
+        return {};
     }
 }
 

@@ -8,11 +8,10 @@
    <div class="blog__sidebar__item">
       <h4>Categories</h4>
       <ul>
-         <li><a href="#">All</a></li>
-         <li><a href="#">Beauty (20)</a></li>
-         <li><a href="#">Food (5)</a></li>
-         <li><a href="#">Life Style (9)</a></li>
-         <li><a href="#">Travel (10)</a></li>
+         <li><a href="/blog"<% if (!blogName){ %> class="active"<% } %>>All</a></li>
+         <% viewParams.block.blog_sidebar.blogCategories.forEach(category => { %>
+         <li><a href="/blog/<%= category.name %>"<% if (blogName==category.name){ %> class="active"<% } %>><%= category.title %> (<%= category.postsCount %>)</a></li>
+         <% }) %>
       </ul>
    </div>
    <div class="blog__sidebar__item">
@@ -50,7 +49,7 @@
    <div class="blog__sidebar__item">
       <h4>Search By</h4>
       <div class="blog__sidebar__item__tags">
-         <% blogTags.forEach(tag => { %>
+         <% viewParams.block.blog_sidebar.blogTags.forEach(tag => { %>
             <a href="#<%= tag.name %>"><%= tag.title %></a>
          <% }) %>
       </div>

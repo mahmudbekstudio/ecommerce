@@ -6,7 +6,7 @@ class Controller {
     protected app: Application;
     public title: string = '';
     public request: z.ZodObject|null = null;
-
+    public view: string
 
     constructor() {
         this.app = getApp();
