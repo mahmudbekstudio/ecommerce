@@ -3,18 +3,11 @@ import NotFoundController from './controllers/web/NotFoundController';
 import BlogController from "./controllers/web/BlogController";
 import BlogPostController from "./controllers/web/BlogPostController";
 import BlogTagController from './controllers/web/BlogTagController';
-import Controller from "./controllers/Controller";
 import LoginController from './controllers/api/LoginController';
 import LogoutController from './controllers/api/LogoutController';
 import SignupController from './controllers/api/SignupController';
-
-export type routeItemType = {
-    url: string;
-    method?: 'get'|'post'|'delete'|'put';
-    name: string;
-    controller?: Controller;
-    children?: routeItemType[]
-};
+import routeItemType from './types/routeItemType';
+import adminRoutes from './admin/routes';
 
 const routes: routeItemType[] = [
     {
@@ -70,6 +63,11 @@ const routes: routeItemType[] = [
                 controller: new SignupController
             }
         ],
+    },
+    {
+        url: 'admin',
+        name: 'admin',
+        children: adminRoutes
     }
 ];
 

@@ -12,6 +12,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
 import generateToken from "./lib/generateToken";
 import User from "./models/User";
+import urils from './lib/utils';
 
 dotenv.config();
 
@@ -25,6 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(async (req, res, next) => {
+    if (urils.isAdmin(req)) {
+        next();
+        return false;
+    }
 
     let token = req.cookies['token'];
     let refreshToken = req.cookies['refreshToken'];
@@ -76,6 +81,11 @@ app.use(async (req, res, next) => {
     next();
 })
 app.use(async (req, res, next) => {
+    if (urils.isAdmin(req)) {
+        next();
+        return false;
+    }
+
     const settings: {key: String; value: mongoose.Schema.Types.Mixed }[] = await Setting.find();
 
     const mainSettingKeys: string[] = Object.keys(mainSettings);

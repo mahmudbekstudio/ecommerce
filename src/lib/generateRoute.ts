@@ -1,4 +1,4 @@
-import { routeItemType } from "../routes";
+import routeItemType from "../types/routeItemType";
 import {Application, Request, Response, NextFunction} from "express";
 import getApp from "./getApp";
 import { z } from 'zod';
