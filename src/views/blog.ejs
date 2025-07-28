@@ -50,7 +50,7 @@
                            <li><i class="fa fa-calendar-o"></i> <%= post.formattedDate %></li>
                            <li><i class="fa fa-comment-o"></i> <%= post.commentsCount %></li>
                         </ul>
-                        <h5><a href="#<%= post.name %>"><%= post.title %></a></h5>
+                        <h5><a href="/blog-post/<%= post.name %>"><%= post.title %></a></h5>
                         <p><%= post.content %></p>
                         <a href="/blog-post/<%= post.name %>" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
                      </div>

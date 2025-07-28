@@ -117,6 +117,83 @@ class BlogPostService
             { $limit: this.limit }
         ]);
     }
+
+    public async getBlogPostByName(name: string, status: boolean = true) {
+        const result = await BlogPost.aggregate([
+            {$match: {status, name}},
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'author_id',
+                    foreignField: '_id',
+                    as: 'author'
+                }
+            },
+            {$unwind: '$author'},
+            {
+                $lookup: {
+                    from: 'blogs',
+                    localField: 'category_id',
+                    foreignField: '_id',
+                    as: 'category'
+                }
+            },
+            {$unwind: '$category'},
+            {
+                $lookup: {
+                    from: 'blogtags',
+                    localField: 'tag_ids',
+                    foreignField: '_id',
+                    as: 'tags'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'blogcomments',
+                    localField: '_id',
+                    foreignField: 'post_id',
+                    as: 'comments'
+                }
+            },
+            {
+                $addFields: {
+                    commentsCount: {$size: '$comments'},
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    title: 1,
+                    content: 1,
+                    banner: 1,
+                    created_at: 1,
+                    commentsCount: 1,
+                    author: {
+                        _id: 1,
+                        email: 1,
+                        data: 1
+                    },
+                    category: {
+                        _id: 1,
+                        name: 1,
+                        title: 1
+                    },
+                    tags: {
+                        _id: 1,
+                        name: 1,
+                        title: 1
+                    }
+                }
+            }
+        ]);
+
+        if (!result.length) {
+            throw Error('Blog post not found');
+        }
+
+        return result[0];
+    }
 }
 
 export default BlogPostService;

@@ -30,6 +30,10 @@ const blogPostSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    full_content: {
+        type: String,
+        default: ''
+    },
     tag_ids: {
         type: Array,
         default: []
