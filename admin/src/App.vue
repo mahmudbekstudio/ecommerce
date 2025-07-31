@@ -1,27 +1,37 @@
+<!--<template>-->
+<!--  <CenteredLayout>-->
+<!--    <v-card>-->
+<!--      <v-card-title>Login</v-card-title>-->
+<!--      <v-card-text>-->
+
+<!--        <div>-->
+<!--          <a href="https://vite.dev" target="_blank">-->
+<!--            <img src="#" class="logo" alt="Vite logo" />-->
+<!--          </a>-->
+<!--          <a href="https://vuejs.org/" target="_blank">-->
+<!--            <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <HelloWorld msg="Vite + Vue" />-->
+
+<!--      </v-card-text>-->
+<!--    </v-card>-->
+<!--  </CenteredLayout>-->
+<!--</template>-->
 <template>
-  <CenteredLayout>
-    <v-card>
-      <v-card-title>Login</v-card-title>
-      <v-card-text>
-
-        <div>
-          <a href="https://vite.dev" target="_blank">
-            <img src="/vite.svg" class="logo" alt="Vite logo" />
-          </a>
-          <a href="https://vuejs.org/" target="_blank">
-            <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-          </a>
-        </div>
-        <HelloWorld msg="Vite + Vue" />
-
-      </v-card-text>
-    </v-card>
-  </CenteredLayout>
+  <v-layout>
+    <v-main class="d-flex align-center justify-center" height="300">
+      <v-container class="fill-height" fluid>
+        <login></login>
+      </v-container>
+    </v-main>
+  </v-layout>
 </template>
 
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import CenteredLayout from './views/layouts/CenteredLayout.vue'
+import login from './views/login.vue'
 </script>
 
 <style scoped>
