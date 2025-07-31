@@ -18,7 +18,8 @@ export default function generateRoute(routes: routeItemType[]) {
                 generateRouteList(routeItem.children, url);
             } else if (routeItem.controller && routeItem.method) {
                 const controller: Controller = routeItem.controller;
-                app[routeItem.method](url, async (req: Request, res: Response) => {
+                const middlewares = (routeItem.middlewares || []).map(item => item.handle)
+                app[routeItem.method](url, middlewares, async (req: Request, res: Response) => {
                         try {
                             if (controller.request) {
                                 await controller.request.parseAsync(req.body)
