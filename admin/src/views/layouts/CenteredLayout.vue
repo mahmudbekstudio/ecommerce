@@ -6,7 +6,7 @@
           fluid
       >
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="4">
+          <v-col>
             <slot /> <!-- Content goes here -->
           </v-col>
         </v-row>
