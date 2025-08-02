@@ -1,6 +1,12 @@
-import Dashboard from "./Dashboard.vue";
+import Main from "./main/Main.vue";
 export default {
     path: 'dashboard',
     name: 'dashboard',
-    component: Dashboard,
+    children: [
+        {
+            path: 'main',
+            name: 'main',
+            component: Main,
+        }
+    ]
 };

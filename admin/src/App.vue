@@ -1,4 +1,5 @@
 <template>
+  == {{ layout }}==
   <router-view />
 </template>
 <!--<template>
@@ -20,16 +21,35 @@
 import CenteredLayout from './views/layouts/CenteredLayout.vue';
 import login from './views/login.vue';
 import { useRouter, useRoute } from 'vue-router';
+import app from './libraries/App.js';
 
 export default {
-  setup() {
+  created() {
     const router = useRouter();
 
     console.log('All routes:', router.getRoutes());
     const route = useRoute();
     console.log('Current route:', route);
-    return {route};
+    console.log('layout', app.layout);
+  },
+  computed: {
+    layout() {
+      return app.layout;
+    }
   }
+  /*setup() {
+    const router = useRouter();
+
+    console.log('All routes:', router.getRoutes());
+    const route = useRoute();
+    console.log('Current route:', route);
+    console.log('layout', app.layout);
+    return {route};
+  },
+
+  mounted() {
+    console.log('layout2', app.layout);
+  }*/
 }
 </script>
 

@@ -8,6 +8,7 @@ import LogoutController from './controllers/api/LogoutController';
 import SignupController from './controllers/api/SignupController';
 import routeItemType from './types/routeItemType';
 import adminRoutes from './admin/routes';
+import MainController from "./admin/controllers/MainController";
 
 const routes: routeItemType[] = [
     {
@@ -65,8 +66,14 @@ const routes: routeItemType[] = [
         ],
     },
     {
-        url: 'admin',
+        url: 'admin{/{*page}}',
         name: 'admin',
+        method: 'get',
+        controller: new MainController
+    },
+    {
+        url: 'admin-api',
+        name: 'admin-api',
         children: adminRoutes
     }
 ];

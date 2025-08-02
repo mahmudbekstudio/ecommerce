@@ -1,5 +1,4 @@
 import routeItemType from '../types/routeItemType';
-import MainController from './controllers/MainController';
 import UserProfileUpdateController from './controllers/api/user/UserProfileUpdateController';
 import UserProfileController from "./controllers/api/user/UserProfileController";
 import UserLoginController from "./controllers/api/user/UserLoginController";
@@ -17,104 +16,92 @@ import IsAdminMiddleware from './middlewares/IsAdminMiddleware';
 
 const routes: routeItemType[] = [
     {
-        url: '',
-        method: 'get',
-        name: 'main',
-        controller: new MainController
-    },
-    {
-        url: 'api',
-        name: 'api',
+        url: 'user',
+        name: 'user',
         children: [
             {
-                url: 'user',
-                name: 'user',
-                children: [
-                    {
-                        url: 'profile',
-                        name: 'profile',
-                        method: 'get',
-                        middlewares: [new IsAuthedMiddleware],
-                        controller: new UserProfileController
-                    },
-                    {
-                        url: 'profile-update',
-                        name: 'profile-update',
-                        method: 'put',
-                        middlewares: [new IsAuthedMiddleware],
-                        controller: new UserProfileUpdateController
-                    },
-                    {
-                        url: 'login',
-                        name: 'login',
-                        method: 'post',
-                        controller: new UserLoginController
-                    },
-                    {
-                        url: 'logout',
-                        name: 'logout',
-                        method: 'post',
-                        middlewares: [new IsAuthedMiddleware],
-                        controller: new UserLogoutController
-                    },
-                    {
-                        url: 'refresh-token',
-                        name: 'refresh-token',
-                        method: 'put',
-                        middlewares: [new IsAuthedMiddleware],
-                        controller: new UserRefreshTokenController
-                    },
-                    {
-                        url: 'forgot-password',
-                        name: 'forgot-password',
-                        method: 'post',
-                        controller: new UserForgotPasswordController
-                    },
-                    {
-                        url: 'reset-password',
-                        name: 'reset-password',
-                        method: 'post',
-                        controller: new UserResetPasswordController
-                    },
-                    {
-                        url: 'list',
-                        name: 'list',
-                        method: 'get',
-                        middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
-                        controller: new UserListController
-                    },
-                    {
-                        url: 'create',
-                        name: 'create',
-                        method: 'post',
-                        middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
-                        controller: new UserCreateController
-                    },
-                    {
-                        url: 'update/:id',
-                        name: 'update',
-                        method: 'put',
-                        middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
-                        controller: new UserUpdateController
-                    },
-                    {
-                        url: 'delete/:id',
-                        name: 'delete',
-                        method: 'delete',
-                        middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
-                        controller: new UserDeleteController
-                    },
-                    {
-                        url: 'item/:id',
-                        name: 'item',
-                        method: 'get',
-                        middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
-                        controller: new UserItemController
-                    }
-                ]
+                url: 'profile',
+                name: 'profile',
+                method: 'get',
+                middlewares: [new IsAuthedMiddleware],
+                controller: new UserProfileController
+            },
+            {
+                url: 'profile-update',
+                name: 'profile-update',
+                method: 'put',
+                middlewares: [new IsAuthedMiddleware],
+                controller: new UserProfileUpdateController
+            },
+            {
+                url: 'login',
+                name: 'login',
+                method: 'post',
+                controller: new UserLoginController
+            },
+            {
+                url: 'logout',
+                name: 'logout',
+                method: 'post',
+                middlewares: [new IsAuthedMiddleware],
+                controller: new UserLogoutController
+            },
+            {
+                url: 'refresh-token',
+                name: 'refresh-token',
+                method: 'put',
+                middlewares: [new IsAuthedMiddleware],
+                controller: new UserRefreshTokenController
+            },
+            {
+                url: 'forgot-password',
+                name: 'forgot-password',
+                method: 'post',
+                controller: new UserForgotPasswordController
+            },
+            {
+                url: 'reset-password',
+                name: 'reset-password',
+                method: 'post',
+                controller: new UserResetPasswordController
+            },
+            {
+                url: 'list',
+                name: 'list',
+                method: 'get',
+                middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
+                controller: new UserListController
+            },
+            {
+                url: 'create',
+                name: 'create',
+                method: 'post',
+                middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
+                controller: new UserCreateController
+            },
+            {
+                url: 'update/:id',
+                name: 'update',
+                method: 'put',
+                middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
+                controller: new UserUpdateController
+            },
+            {
+                url: 'delete/:id',
+                name: 'delete',
+                method: 'delete',
+                middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
+                controller: new UserDeleteController
+            },
+            {
+                url: 'item/:id',
+                name: 'item',
+                method: 'get',
+                middlewares: [new IsAuthedMiddleware, new IsAdminMiddleware],
+                controller: new UserItemController
             }
         ]
     }
-];
+]
 
 export default routes;
