@@ -1,9 +1,11 @@
 <template>
   <router-view />
+</template>
+<!--<template>
   <CenteredLayout>
     <login></login>
   </CenteredLayout>
-</template>
+</template>-->
 <!--<template>-->
 <!--  <v-layout>-->
 <!--    <v-main class="d-flex align-center justify-center" height="300">-->
@@ -14,9 +16,21 @@
 <!--  </v-layout>-->
 <!--</template>-->
 
-<script setup lang="ts">
-import CenteredLayout from './views/layouts/CenteredLayout.vue'
-import login from './views/login.vue'
+<script>
+import CenteredLayout from './views/layouts/CenteredLayout.vue';
+import login from './views/login.vue';
+import { useRouter, useRoute } from 'vue-router';
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    console.log('All routes:', router.getRoutes());
+    const route = useRoute();
+    console.log('Current route:', route);
+    return {route};
+  }
+}
 </script>
 
 <style scoped>
