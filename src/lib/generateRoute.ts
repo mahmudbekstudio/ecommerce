@@ -22,7 +22,7 @@ export default function generateRoute(routes: routeItemType[]) {
                 app[routeItem.method](url, middlewares, async (req: Request, res: Response) => {
                         try {
                             if (controller.request) {
-                                await controller.request.parseAsync(req.body)
+                                await controller.request.parseAsync(req.body || {})
                             }
 
                             controller.init();
@@ -55,17 +55,17 @@ export default function generateRoute(routes: routeItemType[]) {
                             }
 
                             controller.afterHandle(req, res, req.body);
-                        } catch (e) {
+                        } catch (e: Error) {
                             if (e instanceof z.ZodError) {
                                 res.statusCode = 400;
                                 res.json({error: 'Error', data: requestError(e)});
                             } else {
-                                console.error("Unexpected error:", e);
+                                console.error("Unexpected error:", e.name, e.message);
 
                                 if (controller instanceof ApiController) {
-                                    res.json({error: 'Error'});
+                                    res.json({result: false, error: e.message});
                                 } else {
-                                    res.send('error');
+                                    res.send(e.message);
                                 }
                             }
                         }

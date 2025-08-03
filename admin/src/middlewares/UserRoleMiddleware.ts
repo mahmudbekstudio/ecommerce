@@ -9,9 +9,7 @@ class UserRoleMiddleware extends BaseMiddleware
         this.role = role;
     }
     handle(to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: NavigationGuardNext) {
-        console.log('UserRoleMiddleware 1 ' + this.role);
         next();
-        console.log('UserRoleMiddleware 2 ' + this.role);
     }
 }
 

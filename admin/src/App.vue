@@ -1,6 +1,7 @@
 <template>
-  == {{ layout }}==
-  <router-view />
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
 <!--<template>
   <CenteredLayout>
@@ -21,9 +22,12 @@
 import CenteredLayout from './views/layouts/CenteredLayout.vue';
 import login from './views/login.vue';
 import { useRouter, useRoute } from 'vue-router';
-import app from './libraries/App.js';
+import app from './services/App.ts';
 
 export default {
+  components: [
+    CenteredLayout
+  ],
   created() {
     const router = useRouter();
 
@@ -37,19 +41,6 @@ export default {
       return app.layout;
     }
   }
-  /*setup() {
-    const router = useRouter();
-
-    console.log('All routes:', router.getRoutes());
-    const route = useRoute();
-    console.log('Current route:', route);
-    console.log('layout', app.layout);
-    return {route};
-  },
-
-  mounted() {
-    console.log('layout2', app.layout);
-  }*/
 }
 </script>
 

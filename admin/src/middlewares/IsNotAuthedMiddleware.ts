@@ -4,9 +4,8 @@ import type {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormaliz
 class IsNotAuthedMiddleware extends BaseMiddleware
 {
     handle(to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: NavigationGuardNext) {
-        console.log('IsNotAuthedMiddleware1');
+
         next();
-        console.log('IsNotAuthedMiddleware2')
     }
 }
 

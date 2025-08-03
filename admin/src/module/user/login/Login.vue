@@ -35,8 +35,44 @@
     </v-card>
   </centered-layout>
 </template>
-<script setup lang="ts">
-import CenteredLayout from "../../../views/layouts/CenteredLayout.vue";
+<script lang="ts">
+import http from '../../../services/Http.ts';
+import userApi from '../api.ts';
+export default {
+  data () {
+    return {
+      valid: false,
+      email: '',
+      password: '',
+      rules: {
+        required: (v: string) => !!v || 'Field is required',
+        email: (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      }
+    }
+  },
+  methods: {
+    async handleLogin () {
+      const { valid } = await this.$refs.formRef.validate();
+      if (!valid) return;
+
+      try {
+        console.log('handleLogin2');
+        const response = await http
+            .route(userApi.login)
+            .data(this.email, this.password)
+            .send();
+
+        console.log('response', response);
+      } catch (e: Error) {
+        console.log('error', e.message);
+      }
+
+      // Replace this with real login logic
+      //console.log('Logging in with:', this.email, this.password)
+    }
+  }
+}
+/*import CenteredLayout from "../../../views/layouts/CenteredLayout.vue";
 import { ref } from 'vue'
 
 const email = ref('')
@@ -54,5 +90,5 @@ const handleLogin = () => {
 
   // Replace this with real login logic
   console.log('Logging in with:', email.value, password.value)
-}
+}*/
 </script>

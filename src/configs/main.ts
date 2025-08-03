@@ -5,7 +5,7 @@ export default {
         regexMessage: 'Password must include uppercase, lowercase, number, and symbol',
     },
     token: {
-        tokenExpireTime: '1h',
+        accessTokenExpireTime: '1h',
         refreshTokenExpireTime: '30d',
     },
     pagination: {
