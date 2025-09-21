@@ -13,6 +13,7 @@ import UserDeleteController from "./controllers/api/user/UserDeleteController";
 import UserItemController from "./controllers/api/user/UserItemController";
 import IsAuthedMiddleware from './middlewares/IsAuthedMiddleware';
 import IsAdminMiddleware from './middlewares/IsAdminMiddleware';
+import RefreshTokenValidMiddleware from "./middlewares/RefreshTokenValidMiddleware";
 
 const routes: routeItemType[] = [
     {
@@ -50,7 +51,7 @@ const routes: routeItemType[] = [
                 url: 'refresh-token',
                 name: 'refresh-token',
                 method: 'put',
-                middlewares: [new IsAuthedMiddleware],
+                middlewares: [new RefreshTokenValidMiddleware],
                 controller: new UserRefreshTokenController
             },
             {

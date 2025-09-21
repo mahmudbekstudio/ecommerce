@@ -38,6 +38,8 @@
 <script lang="ts">
 import http from '../../../services/Http.ts';
 import userApi from '../api.ts';
+import auth from '../../../services/Auth.ts';
+import viewConfig from '../../../configs/view.ts';
 export default {
   data () {
     return {
@@ -56,19 +58,17 @@ export default {
       if (!valid) return;
 
       try {
-        console.log('handleLogin2');
         const response = await http
             .route(userApi.login)
             .data(this.email, this.password)
             .send();
 
-        console.log('response', response);
+        if (response.data.result) {
+          auth.login(response.data.token, response.data.user);
+          this.$router.push({ name: viewConfig.page.default });
+        }
       } catch (e: Error) {
         console.log('error', e.message);
-      }
-
-      // Replace this with real login logic
-      //console.log('Logging in with:', this.email, this.password)
     }
   }
 }

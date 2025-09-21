@@ -5,6 +5,7 @@ import User from '../../../../models/User';
 import bcrypt from "bcrypt";
 import generateToken from "../../../../lib/generateToken";
 import user_statuses from "../../../../configs/user_statuses";
+import user_roles from '../../../../configs/user_roles';
 
 class UserLoginController extends ApiController
 {
@@ -13,25 +14,34 @@ class UserLoginController extends ApiController
         const userItem = await User.findOne({email: data.email});
 
         if (!userItem || !(await bcrypt.compare(data.password, userItem.password))) {
-            res.statusCode = 400;
-            res.json({ error: 'Error', data: { email: 'Email or password incorrect' } });
-            return {result: false};
+            return this.throwError(res, 'Email or password incorrect');
         }
 
         if (userItem.status === user_statuses.ACTIVE) {
-            const tokenData = generateToken(userItem, {role: 'role', statue: 'status', id: '_id'});
-            return { result: true, token: tokenData.token, user: tokenData.user };
+            if ([user_roles.ADMIN, user_roles.MANAGER].indexOf(userItem.role) === -1) {
+                return this.throwError(res, 'Email or password incorrect');
+            }
+
+            const { token, user } = generateToken(userItem, {role: 'role', statue: 'status', id: '_id'});
+            return { result: true, token, user };
         }
 
         if (userItem.status === user_statuses.NOT_ACTIVE) {
-            throw new Error('User not active');
+            return this.throwError(res, 'User not active');
         }
 
         if (userItem.status === user_statuses.BLOCKED) {
-            throw new Error('User blocked');
+            return this.throwError(res, 'User blocked');
         }
 
         return { result: true };
+    }
+
+    throwError(res: Response, message: string, status: number = 400) {
+        res.statusCode = status;
+        res.json({ error: 'Error', data: { email: message } });
+
+        return { result: false };
     }
 }
 

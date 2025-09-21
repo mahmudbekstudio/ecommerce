@@ -1,4 +1,6 @@
 import Main from "./main/Main.vue";
+import IsAuthedMiddleware from "../../middlewares/IsAuthedMiddleware.ts";
+
 export default {
     path: 'dashboard',
     name: 'dashboard',
@@ -7,6 +9,9 @@ export default {
             path: 'main',
             name: 'main',
             component: Main,
+            meta: {
+                middlewares: [new IsAuthedMiddleware]
+            }
         }
     ]
 };

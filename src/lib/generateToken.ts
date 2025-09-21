@@ -3,7 +3,15 @@ import mainConfig from "../configs/main";
 import jwt from "jsonwebtoken";
 import _ from 'lodash';
 
-export default (userItem: UserType, additional: object = {}) => {
+export default (userItem: UserType, additional: object = {}): {
+    token: {
+        accessToken: string,
+        refreshToken: string,
+        tokenExpireTime: string,
+        refreshTokenExpireTime: string
+    },
+    user: object
+} => {
     const jwtSecret = process.env.JWT_SECRET || 'default_jwt_secret';
 
     const accessToken = jwt.sign({

@@ -31,7 +31,7 @@ app.use(async (req, res, next) => {
         return false;
     }
 
-    let token = req.cookies['token'];
+    let token = req.cookies['accessToken'];
     let refreshToken = req.cookies['refreshToken'];
     const jwtSecret = process.env.JWT_SECRET || 'default_jwt_secret';
     let userItem;
@@ -45,19 +45,17 @@ app.use(async (req, res, next) => {
                 userItem = await User.findById(userToken.id);
 
                 const generatedToken = generateToken(userItem);
-                token = generatedToken.token;
-                refreshToken = generatedToken.refreshToken;
-                res.cookie('refreshToken', token, {
+                res.cookie('refreshToken', generatedToken.token.refreshToken, {
                     httpOnly: true,
                     //secure: true,
                     sameSite: 'strict',
-                    maxAge: generatedToken.refreshTokenExpireTime
+                    maxAge: generatedToken.token.refreshTokenExpireTime
                 });
-                res.cookie('token', refreshToken, {
+                res.cookie('accessToken', generatedToken.token.accessToken, {
                     httpOnly: true,
                     //secure: true,
                     sameSite: 'strict',
-                    maxAge: generatedToken.tokenExpireTime
+                    maxAge: generatedToken.token.tokenExpireTime
                 });
             } catch (e) {
                 console.warn('Invalid token or user not found');

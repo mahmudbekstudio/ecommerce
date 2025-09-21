@@ -15,8 +15,16 @@
             url: '/api/login',
             data: {email: email.val(), password: password.val()},
             success: function (response) {
-                window.localStorage.setItem('userData', JSON.stringify(response.data));
-                window.location.reload();
+                if (response.result) {
+                    window.localStorage.setItem('userData', JSON.stringify(response.data));
+                    window.location.reload();
+                } else {
+                    const field = loginForm.find('.form-control');
+                    const feedback = field.parent().find('.invalid-feedback').first();
+                    field.addClass('is-invalid');
+                    feedback.removeClass('hide');
+                    feedback.text(response.error);
+                }
             },
             error: function (xhr) {
                 const errors = JSON.parse(xhr.responseText);

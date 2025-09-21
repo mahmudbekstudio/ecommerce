@@ -42,7 +42,7 @@ export default {
             name: 'list',
             component: List,
             meta: {
-                middlewares: [new IsAuthedMiddleware, new UserRoleMiddleware(mainConfig.user.roles.admin)]
+                middlewares: [new IsAuthedMiddleware, new UserRoleMiddleware([mainConfig.user.roles.admin])]
             }
         },
     ]
