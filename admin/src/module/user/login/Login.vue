@@ -10,6 +10,7 @@
               label="Email"
               type="email"
               :rules="[rules.required, rules.email]"
+              :error-messages="emailErrorMessages"
               prepend-inner-icon="mdi-email"
               required
           />
@@ -40,8 +41,9 @@ import http from '../../../services/Http.ts';
 import userApi from '../api.ts';
 import auth from '../../../services/Auth.ts';
 import viewConfig from '../../../configs/view.ts';
+import CenteredLayout from '../../../views/layouts/CenteredLayout.vue';
 export default {
-  data () {
+  data() {
     return {
       valid: false,
       email: '',
@@ -49,12 +51,13 @@ export default {
       rules: {
         required: (v: string) => !!v || 'Field is required',
         email: (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      }
+      },
+      emailErrorMessages: '',
     }
   },
   methods: {
-    async handleLogin () {
-      const { valid } = await this.$refs.formRef.validate();
+    async handleLogin() {
+      const {valid} = await this.$refs.formRef.validate();
       if (!valid) return;
 
       try {
@@ -65,30 +68,22 @@ export default {
 
         if (response.data.result) {
           auth.login(response.data.token, response.data.user);
-          this.$router.push({ name: viewConfig.page.default });
+          this.$router.push({name: viewConfig.page.default});
+        } else {
+          console.log('response', response);
         }
       } catch (e: Error) {
-        console.log('error', e.message);
+        this.emailErrorMessages = e.response?.data?.data?.email || e.message;
+      }
     }
+  },
+  watch: {
+    email () {
+      this.emailErrorMessages = '';
+    }
+  },
+  components: {
+    CenteredLayout,
   }
 }
-/*import CenteredLayout from "../../../views/layouts/CenteredLayout.vue";
-import { ref } from 'vue'
-
-const email = ref('')
-const password = ref('')
-const valid = ref(false)
-const formRef = ref()
-
-const rules = {
-  required: (v: string) => !!v || 'Field is required',
-  email: (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-}
-
-const handleLogin = () => {
-  if (!formRef.value?.validate()) return
-
-  // Replace this with real login logic
-  console.log('Logging in with:', email.value, password.value)
-}*/
 </script>

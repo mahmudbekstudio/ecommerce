@@ -27,7 +27,7 @@ export default function generateRoute(routes: routeItemType[]) {
 
                             controller.init();
                             controller.beforeHandle(req, res, req.body);
-                            const result = await controller.handle(req, res, req.body);
+                            const result: any = await controller.handle(req, res, req.body);
 
                             if (result === false) return false;
 

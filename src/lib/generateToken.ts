@@ -7,8 +7,8 @@ export default (userItem: UserType, additional: object = {}): {
     token: {
         accessToken: string,
         refreshToken: string,
-        tokenExpireTime: string,
-        refreshTokenExpireTime: string
+        tokenExpireTime: number,
+        refreshTokenExpireTime: number
     },
     user: object
 } => {
