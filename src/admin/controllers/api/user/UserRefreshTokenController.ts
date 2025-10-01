@@ -4,11 +4,12 @@ import jwt from "jsonwebtoken";
 import generateToken from "../../../../lib/generateToken";
 import User from "../../../../models/User";
 import user_roles from "../../../../configs/user_roles";
+import mainConfig from "../../../../configs/main";
 
 class UserRefreshTokenController extends ApiController
 {
     async handle(req: Request, res: Response, data: any = null) {
-        const jwtSecret = process.env.JWT_SECRET || 'default_jwt_secret';
+        const jwtSecret = process.env.JWT_SECRET || mainConfig.token.defaultJwtSecret;
         const userToken = jwt.verify(req.body.refreshToken, jwtSecret)
         const userItem = await User.findById(userToken.id);
 

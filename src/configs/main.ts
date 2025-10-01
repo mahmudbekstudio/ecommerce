@@ -7,6 +7,7 @@ export default {
     token: {
         accessTokenExpireTime: '1h',
         refreshTokenExpireTime: '30d',
+        defaultJwtSecret: 'default_jwt_secret',
     },
     pagination: {
         count: 10,

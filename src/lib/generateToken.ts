@@ -12,15 +12,18 @@ export default (userItem: UserType, additional: object = {}): {
     },
     user: object
 } => {
-    const jwtSecret = process.env.JWT_SECRET || 'default_jwt_secret';
+    const jwtSecret = process.env.JWT_SECRET || mainConfig.token.defaultJwtSecret;
 
     const accessToken = jwt.sign({
         id: userItem._id,
+        type: 'access',
+        role: userItem.role,
         email: userItem.email,
     }, jwtSecret, {expiresIn: mainConfig.token.accessTokenExpireTime});
 
     const refreshToken = jwt.sign({
         id: userItem._id,
+        type: 'refresh',
     }, jwtSecret, {expiresIn: mainConfig.token.refreshTokenExpireTime});
 
     const tokenExpireTime = (jwt.decode(accessToken) as { exp: number }).exp * 1000;

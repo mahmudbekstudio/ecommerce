@@ -1,8 +1,10 @@
 import Middleware from '../../middlewares/Middleware';
 import {NextFunction, Request, Response} from "express";
+import mainConfig from "../../configs/main";
 import jwt from "jsonwebtoken";
-import mainConfig from '../../configs/main';
-class IsAuthedMiddleware extends Middleware
+import userRoles from "../../configs/user_roles";
+
+class IsAdminOrManagerMiddleware extends Middleware
 {
     public handle (req: Request, res: Response, next: NextFunction) {
         try {
@@ -13,6 +15,7 @@ class IsAuthedMiddleware extends Middleware
             const userToken = jwt.verify(token, jwtSecret);
 
             if (userToken.type !== 'access') throw Error('Token is not access token');
+            if ([userRoles.ADMIN, userRoles.MANAGER].indexOf(userToken.role) === -1) throw Error('Token do not belong to Admin or Manager');
 
             next();
         } catch (e) {
@@ -22,4 +25,4 @@ class IsAuthedMiddleware extends Middleware
     }
 }
 
-export default IsAuthedMiddleware;
+export default IsAdminOrManagerMiddleware;
