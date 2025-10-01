@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <empty-layout>
     <v-main>
       <v-container
           class="fill-height"
@@ -7,10 +7,19 @@
       >
         <v-row align="center" justify="center">
           <v-col>
-            <slot /> <!-- Content goes here -->
+            <slot />
           </v-col>
         </v-row>
       </v-container>
     </v-main>
-  </v-app>
+  </empty-layout>
 </template>
+<script lang="ts">
+import EmptyLayout from "./EmptyLayout.vue";
+
+export default {
+  components: {
+    EmptyLayout
+  }
+}
+</script>
