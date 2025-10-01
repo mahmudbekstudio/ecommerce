@@ -8,6 +8,7 @@ import path from 'path';
 import Setting from './models/Setting';
 import mongoose from "mongoose";
 import mainSettings from "./configs/mainSettings";
+import mainConfig from "./configs/main";
 import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
 import generateToken from "./lib/generateToken";
@@ -33,7 +34,7 @@ app.use(async (req, res, next) => {
 
     let token = req.cookies['accessToken'];
     let refreshToken = req.cookies['refreshToken'];
-    const jwtSecret = process.env.JWT_SECRET || 'default_jwt_secret';
+    const jwtSecret = process.env.JWT_SECRET || mainConfig.token.defaultJwtSecret;
     let userItem;
     res.locals.isAuthenticated = false;
     res.locals.user = null;

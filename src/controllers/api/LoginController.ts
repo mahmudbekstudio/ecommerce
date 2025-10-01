@@ -16,8 +16,8 @@ class LoginController extends ApiController
 
         if (!userItem || !(await bcrypt.compare(data.password, userItem.password))) {
             res.statusCode = 400;
-            res.json({error: 'Error', data: {email: 'Email or password incorrect'}});
-            return {result: false};
+
+            return {result: false, error: 'Error', data: {email: 'Email or password incorrect'}};
         }
 
         if (userItem.status === user_statuses.ACTIVE) {

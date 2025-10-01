@@ -1,13 +1,14 @@
 import axios from "axios";
+type RouteObject = {
+    url: string,
+    method: string,
+    data?: any
+};
 
 class Http {
-    private routeObj: {
-        url: string,
-        method: string,
-        data?: any
-    };
+    private routeObj: RouteObject;
     private dataObj: any;
-    route(route: Object) {
+    route(route: RouteObject) {
         console.log('route');
         this.routeObj = route;
 

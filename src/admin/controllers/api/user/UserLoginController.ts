@@ -2,6 +2,7 @@ import ApiController from '../../../../controllers/ApiController';
 import { Request, Response } from 'express';
 import LoginRequest from '../../../requests/LoginRequest';
 import User from '../../../../models/User';
+import UserType from '../../../../types/UserType';
 import bcrypt from "bcrypt";
 import generateToken from "../../../../lib/generateToken";
 import user_statuses from "../../../../configs/user_statuses";
@@ -11,7 +12,7 @@ class UserLoginController extends ApiController
 {
     public request = LoginRequest;
     async handle(req: Request, res: Response, data: any = null) {
-        const userItem = await User.findOne({email: data.email});
+        const userItem: UserType|null = await User.findOne({email: data.email});
 
         if (!userItem || !(await bcrypt.compare(data.password, userItem.password))) {
             return this.throwError(res, 'Email or password incorrect');
@@ -39,9 +40,8 @@ class UserLoginController extends ApiController
 
     throwError(res: Response, message: string, status: number = 400) {
         res.statusCode = status;
-        res.json({ error: 'Error', data: { email: message } });
 
-        return { result: false };
+        return { result: false, error: 'Error', data: { email: message } };
     }
 }
 
